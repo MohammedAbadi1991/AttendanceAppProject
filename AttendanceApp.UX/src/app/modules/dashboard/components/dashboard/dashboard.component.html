@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-xs-4 col-md-4"></div>
+  <div class="col-xs-3 col-md-4">
+    <!-- Card container that binds all togather -->
+    <mat-card>
+
+      <!-- Title of an Card -->
+      <mat-card-title>
+        << DASHBOARD >>
+      </mat-card-title>
+
+      <br />
+
+      <br />
+
+      <!-- Actual content starts from here -->
+      <mat-card-content>
+
+        <mat-list>
+          <mat-list-item>
+            <mat-icon aria-hidden="false">list</mat-icon>
+            <button mat-button (click)="goToOpenExistingSessions()">Open Existing Sessions</button>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <mat-icon aria-hidden="false">note_add</mat-icon>
+            <button mat-button (click)="goToNewSession()">New Session</button></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <mat-icon aria-hidden="false">location_city</mat-icon>
+            <button mat-button (click)="goToLocations()">Locations</button></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <mat-icon aria-hidden="false">bar_chart</mat-icon>
+            <button mat-button (click)="goToReports()">Reports</button></mat-list-item>
+        </mat-list>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="col-xs-4 col-md-4"></div>
+</div>

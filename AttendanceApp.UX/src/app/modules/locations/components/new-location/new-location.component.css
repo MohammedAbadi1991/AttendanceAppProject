@@ -1,0 +1,15 @@
+.mat-card {
+  margin: 20px;
+  margin-top: 50px;
+}
+
+.mat-card-title {
+  text-align: center;
+}
+
+mat-label > h5 {
+  text-align: center;
+  color: gray;
+  font-size: 14px;
+  font-style: italic;
+}
