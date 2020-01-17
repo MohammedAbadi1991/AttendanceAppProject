@@ -1,1 +1,1 @@
-this is the backend application for Attendance App
+Attendance Application is a demo used for tranining purposes.
