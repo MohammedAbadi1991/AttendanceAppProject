@@ -19,7 +19,8 @@ export class LocationService  {
 
   getAllLocations(): Observable<LocationModel[]> {
     const url = this.baseServiceUrl + 'all';
-    return this.apiService.getRequest(url).pipe(map(response => {
+    return this.apiService.getRequest(url).pipe(map((response: APIResponseModel<LocationModel[]>) => {
+      // let realResult : LocationModel[] = response.results;
       return response.results;
     }));
 
@@ -27,9 +28,7 @@ export class LocationService  {
 
   addNewLocation(name: string) {
     const url = this.baseServiceUrl;
-    this.apiService.postRequest(url, {name}).subscribe(response => {
-      // return response.results;
-    });
+    return this.apiService.postRequest(url, {name});
   }
 
 }

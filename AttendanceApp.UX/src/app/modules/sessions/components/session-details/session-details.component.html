@@ -1,1 +1,16 @@
-<mat-toolbar>Session Location:  {{ currentSession.location.name }}</mat-toolbar>
+<mat-toolbar>
+  Session Location:  {{ currentSession.location.name }} |
+  &nbsp;<div>Date: {{ currentSession.sessionDate | date: 'yy/MM/yyyy'}}</div>
+  </mat-toolbar>
+
+  <mat-card>
+    <h5>Search by using your pohone number:</h5>
+
+    <mat-form-field>
+      <input formControlName="PhoneForSearch" matInput placeholder="Enter Phone Number Here ...">
+    </mat-form-field>
+    <button mat-raised-button color='primary'>Search</button>
+
+  </mat-card>
+
+

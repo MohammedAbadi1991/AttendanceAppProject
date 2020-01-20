@@ -28,11 +28,18 @@ export class NewLocationComponent implements OnInit {
 
     // console.log(form.value.LocationName);
 
-    this.service.addNewLocation(form.value.LocationName);
-    this.router.navigate(['/locations']);
+    this.service.addNewLocation(form.value.LocationName).subscribe(() => {
 
-    this.snackBar.open('New location created', '', {
-      duration: 2000,
+      const subscriber = this.snackBar.open('New location created', 'Exit', {
+        duration: 5000,
+      });
+      subscriber.onAction().subscribe(() => {
+        this.router.navigate(['/locations']);
+      });
+      subscriber.afterDismissed().subscribe(() => {
+        this.router.navigate(['/locations']);
+      });
+
     });
 
   }

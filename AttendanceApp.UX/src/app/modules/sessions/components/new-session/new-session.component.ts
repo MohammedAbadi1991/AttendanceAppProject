@@ -39,7 +39,7 @@ export class NewSessionComponent implements OnInit {
     this.service.addNewSession(form.value.LocationId, form.value.SessionDate);
     this.router.navigate(['/sessions']);
 
-    this.snackBar.open('New location created', '', {
+    this.snackBar.open('New session created', '', {
       duration: 3000,
     });
 

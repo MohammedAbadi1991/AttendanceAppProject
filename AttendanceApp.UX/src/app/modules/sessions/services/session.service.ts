@@ -23,7 +23,7 @@ export class SessionService {
 
   getSessionById(id: number) {
 
-    const url = this.baseServiceUrl + 'id';
+    const url = this.baseServiceUrl + id;
     return this.apiService.getRequest(url).pipe(map(response => {
       return response.results; // Return One Session
     }));
