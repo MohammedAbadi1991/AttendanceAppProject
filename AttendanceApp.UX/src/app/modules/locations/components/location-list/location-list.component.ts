@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LocationModel } from '../../location.model';
-import { LocationService } from '../../locations.service';
+import { LocationService } from '../../services/locations.service';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { LocationModel } from '../../models/location.model';
 
 @Component({
   selector: 'app-location-list',

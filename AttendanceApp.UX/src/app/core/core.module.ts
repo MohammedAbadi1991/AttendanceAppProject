@@ -6,6 +6,7 @@ import { AuthService } from './auth/auth.service';
 import { AppRoutingModule } from '../app-routing.module';
 import { LoginService } from './services/login.service';
 import { LoginComponent } from './login/login.component';
+import { ApiService } from '../shared/api/api.service';
 
 
 
@@ -20,6 +21,6 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule
   ],
   //You will provide here also login service.
-  providers: [AuthService, AuthGuardService, LoginService]
+  providers: [AuthService, AuthGuardService, LoginService, ApiService]
 })
 export class CoreModule { }

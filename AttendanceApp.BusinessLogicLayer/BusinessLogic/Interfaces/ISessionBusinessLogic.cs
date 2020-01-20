@@ -9,5 +9,7 @@ namespace AttendanceApp.BusinessLogicLayer.BusinessLogic
     public interface ISessionBusinessLogic
     {
         IList<SessionModel> GetAll();
+        void Insert(SessionModel model);
+        SessionModel GetById(int id);
     }
 }

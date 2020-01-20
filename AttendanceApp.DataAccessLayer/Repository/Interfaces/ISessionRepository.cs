@@ -7,5 +7,7 @@ namespace AttendanceApp.DataAccessLayer.Repository
 {
     public interface ISessionRepository : IRepository<Session>
     {
+        IEnumerable<Session> GetWithLocations();
+        Session GetByIdWithLocation(int sessionId);
     }
 }

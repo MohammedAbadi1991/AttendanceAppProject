@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AttendanceApp.API.Model;
 using AttendanceApp.BusinessLogicLayer.BusinessLogic;
 using AttendanceApp.BusinessLogicLayer.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -23,9 +25,10 @@ namespace AttendanceApp.API.Controllers
 
         // GET: api/<controller>/All
         [HttpGet("All")]
-        public IEnumerable<SessionModel> GetAll()
+        public APIResponseModel<IList<SessionModel>> GetAll()
         {
-            return _sessionBusinessLogic.GetAll();
+            return new APIResponseModel<IList<SessionModel>>(
+                "", StatusCodes.Status200OK.ToString(), StatusCodes.Status200OK, _sessionBusinessLogic.GetAll());
         }
 
         // GET: api/Session
@@ -37,15 +40,19 @@ namespace AttendanceApp.API.Controllers
 
         // GET: api/Session/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public APIResponseModel<SessionModel> Get(int id)
         {
-            return "value";
+            return new APIResponseModel<SessionModel>(
+                "", StatusCodes.Status200OK.ToString(), StatusCodes.Status200OK, _sessionBusinessLogic.GetById(id));
+
         }
 
         // POST: api/Session
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] SessionModel model)
         {
+            _sessionBusinessLogic.Insert(model);
+            return Ok();
         }
 
         // PUT: api/Session/5

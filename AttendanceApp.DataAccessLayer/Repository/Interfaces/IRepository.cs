@@ -29,6 +29,11 @@ namespace AttendanceApp.DataAccessLayer.Repository
                   Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
                   string includeProperties = "");
 
+        TEntity GetOne(
+           Expression<Func<TEntity, bool>> filter = null,
+           Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+           string includeProperties = "");
+
         TEntity GetByID(int id);
         //IEnumerable<TEntity> GetWithRawSql(string query,
         //    params object[] parameters);

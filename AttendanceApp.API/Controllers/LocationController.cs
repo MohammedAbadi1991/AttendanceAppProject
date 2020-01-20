@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AttendanceApp.API.Model;
 using AttendanceApp.BusinessLogicLayer.BusinessLogic;
 using AttendanceApp.BusinessLogicLayer.Models;
 using Microsoft.AspNetCore.Http;
@@ -28,9 +29,10 @@ namespace AttendanceApp.API.Controllers
         }
 
         [HttpGet("All")]
-        public IEnumerable<LocationModel> GetAll()
+        public APIResponseModel<IList<LocationModel>> GetAll()
         {
-            return _locationBusinessLogic.GetAll();
+            return new APIResponseModel<IList<LocationModel>>(
+                "", StatusCodes.Status200OK.ToString(), StatusCodes.Status200OK, _locationBusinessLogic.GetAll());
         }
 
         // GET: api/Location/5

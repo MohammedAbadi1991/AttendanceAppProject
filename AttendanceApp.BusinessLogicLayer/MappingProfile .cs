@@ -14,6 +14,8 @@ namespace AttendanceApp.BusinessLogicLayer
 
         public MappingProfile()
         {
+            CreateMap<SessionModel, Session>();
+
             CreateMap<Session, SessionModel>();
             CreateMap<Location, LocationModel>();
             CreateMap<User, UserModel>();

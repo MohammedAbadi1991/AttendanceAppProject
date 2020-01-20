@@ -1,1 +1,20 @@
-<router-outlet></router-outlet>
+<mat-toolbar>
+  <span><button mat-raised-button (click)="goToHome()">
+      <mat-icon aria-hidden="false">home</mat-icon>
+    </button></span>
+  <div>&nbsp; Welcome to my application.</div>
+</mat-toolbar>
+
+
+<div class="row">
+  <div class="col-xs-4 col-md-4"></div>
+  <div class="col-xs-3 col-md-4">
+    <!-- Card container that binds all togather -->
+    <mat-card>
+      <br />
+      <router-outlet></router-outlet>
+
+    </mat-card>
+  </div>
+  <div class="col-xs-4 col-md-4"></div>
+</div>

@@ -12,7 +12,7 @@ const routes: Routes = [
     component: NewSessionComponent
   },
   {
-    path: 'session-details',
+    path: 'session-details/:id',
     component: SessionDetailsComponent
   }
 ];

@@ -1,9 +1,3 @@
-<div class="row">
-  <div class="col-xs-4 col-md-4"></div>
-  <div class="col-xs-3 col-md-4">
-    <!-- Card container that binds all togather -->
-    <mat-card>
-
       <!-- Title of an Card -->
       <mat-card-title>
         << Locations >>
@@ -11,8 +5,8 @@
 
       <br />
 
-      <span><button mat-button (click)="onAddNew()">Add New Location</button></span>
-      <br />
+      <span><button mat-raised-button color="primary" (click)="onAddNew()"><mat-icon aria-hidden="false">add</mat-icon>Add New</button></span>
+      <br />&nbsp;
       <mat-divider></mat-divider>
 
       <br />
@@ -40,7 +34,3 @@
 
 
       </mat-card-content>
-    </mat-card>
-  </div>
-  <div class="col-xs-4 col-md-4"></div>
-</div>

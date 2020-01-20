@@ -17,12 +17,21 @@ namespace AttendanceApp.BusinessLogicLayer.BusinessLogic
 
         public IList<SessionModel> GetAll()
         {
-            var sessions = _unitOfWork.Sessions.Get();
+            var sessions = _unitOfWork.Sessions.GetWithLocations();
             return _mapper.Map<IEnumerable<Session>, IList<SessionModel>>(sessions);
+        }
 
+        public SessionModel GetById(int id)
+        {
+            var session = _unitOfWork.Sessions.GetByIdWithLocation(id);
+            return _mapper.Map<Session, SessionModel>(session);
+        }
 
-            //var sessions = _unitOfWork.Sessions.Get();
-            //return sessions.Select(x => new SessionModel() { SessionDate = x.SessionDate.ToShortDateString() }).ToList();
+        public void Insert(SessionModel model)
+        {
+            var newSession = _mapper.Map<SessionModel, Session>(model);
+            _unitOfWork.Sessions.Insert(newSession);
+            _unitOfWork.Commit();
         }
     }
 }
