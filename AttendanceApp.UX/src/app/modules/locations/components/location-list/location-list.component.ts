@@ -3,6 +3,7 @@ import { LocationService } from '../../services/locations.service';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { LocationModel } from '../../models/location.model';
+import { APIResponseModel } from 'src/app/shared/api/api-response';
 
 @Component({
   selector: 'app-location-list',
@@ -20,6 +21,8 @@ export class LocationListComponent implements OnInit {
     this.service.getAllLocations().subscribe(
       locations => {
         this.dataSource = locations;
+      },(error:APIResponseModel<any>)=>{
+        console.log("error has occured");
       });
   }
 

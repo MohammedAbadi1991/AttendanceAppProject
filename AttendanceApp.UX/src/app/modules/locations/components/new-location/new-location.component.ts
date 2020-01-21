@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocationService } from '../../services/locations.service';
 import { MatSnackBar } from '@angular/material';
+import { APIResponseModel } from 'src/app/shared/api/api-response';
 
 @Component({
   selector: 'app-new-location',
@@ -38,8 +39,10 @@ export class NewLocationComponent implements OnInit {
       });
       subscriber.afterDismissed().subscribe(() => {
         this.router.navigate(['/locations']);
-      });
+      } );
 
+    },(error:APIResponseModel<any>)=>{
+      console.log("error has occured")
     });
 
   }
