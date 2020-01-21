@@ -29,9 +29,6 @@ export class LocationService  {
   addNewLocation(name: string) {
     const url = this.baseServiceUrl;
     return this.apiService.postRequest(url, {name});
-    return this.apiService.postRequest(url, {name}).pipe(map((response:any)=>{
-      return response;
-    }));
   }
 
 }
