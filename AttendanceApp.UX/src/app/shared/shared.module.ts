@@ -37,6 +37,7 @@ import {
   MatTooltipModule,
   MatTreeModule
 } from '@angular/material';
+import { SnackbarService } from './snackbar/snackbar.service';
 
 @NgModule({
   declarations: [],
@@ -116,6 +117,6 @@ import {
     MatStepperModule,
     MatGridListModule,
     MatSortModule
-  ]
+  ], providers: [SnackbarService]
 })
 export class SharedModule { }

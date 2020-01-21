@@ -35,9 +35,9 @@ namespace AttendanceApp.DataAccessLayer.Repository
            string includeProperties = "");
 
         TEntity GetByID(int id);
-        //IEnumerable<TEntity> GetWithRawSql(string query,
-        //    params object[] parameters);
+
         void Insert(TEntity entity);
+        int InsertWithReturn(TEntity entity);
         void Update(TEntity entityToUpdate);
     }
 }

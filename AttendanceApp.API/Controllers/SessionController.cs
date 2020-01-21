@@ -17,10 +17,12 @@ namespace AttendanceApp.API.Controllers
     public class SessionController : ControllerBase
     {
         private readonly ISessionBusinessLogic _sessionBusinessLogic;
+        private readonly IStudentBusinessLogic _studentBusinessLogic;
 
-        public SessionController(ISessionBusinessLogic sessionBusinessLogic)
+        public SessionController(ISessionBusinessLogic sessionBusinessLogic, IStudentBusinessLogic studentBusinessLogic)
         {
             _sessionBusinessLogic = sessionBusinessLogic;
+            _studentBusinessLogic = studentBusinessLogic;
         }
 
         // GET: api/<controller>/All
@@ -31,12 +33,12 @@ namespace AttendanceApp.API.Controllers
                 "", StatusCodes.Status200OK.ToString(), StatusCodes.Status200OK, _sessionBusinessLogic.GetAll());
         }
 
-        // GET: api/Session
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "Session 2", "Session 2 - 2" };
-        }
+        //// GET: api/Session
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "Session 2", "Session 2 - 2" };
+        //}
 
         // GET: api/Session/5
         [HttpGet("{id}")]
@@ -49,22 +51,60 @@ namespace AttendanceApp.API.Controllers
 
         // POST: api/Session
         [HttpPost]
-        public IActionResult Post([FromBody] SessionModel model)
+        public APIResponseModel<string> Post([FromBody] SessionModel model)
         {
+            //_sessionBusinessLogic.Insert(model);
+            //return Ok();
+
+
+            if (model.LocationId <= 0)
+                return new APIResponseModel<string>(
+                    "Cannot insert empty session.", StatusCodes.Status406NotAcceptable.ToString(), StatusCodes.Status406NotAcceptable, "");
+
             _sessionBusinessLogic.Insert(model);
-            return Ok();
+
+            return new APIResponseModel<string>(
+               "Session inserted successfully", StatusCodes.Status200OK.ToString(), StatusCodes.Status200OK, "");
         }
 
-        // PUT: api/Session/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        //// PUT: api/Session/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
+
+        //// DELETE: api/ApiWithActions/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
+
+
+        // POST: api/Session/RegisterNewStudent
+        [HttpPost("RegisterNewStudent")]
+        public APIResponseModel<string> RegisterNewStudent([FromBody] StudentAndSessionIdModel model)
         {
+
+            var newUserId = _studentBusinessLogic.InsertNewStudent(model.Student);
+
+            return new APIResponseModel<string>(
+               "Session inserted successfully", StatusCodes.Status200OK.ToString(), StatusCodes.Status200OK, "");
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+
+        // GET: api/Session/GetStudentByPhone/id
+        [HttpGet("GetStudentByPhone")]
+        public APIResponseModel<StudentModel> GetStudentByPhone(string phoneNumber)
         {
+            var result = _sessionBusinessLogic.GetStudentByPhone(phoneNumber);
+
+            if (result == null)
+                return new APIResponseModel<StudentModel>(
+                    "", StatusCodes.Status404NotFound.ToString(), StatusCodes.Status404NotFound, null);
+            else
+                return new APIResponseModel<StudentModel>(
+                    "", StatusCodes.Status200OK.ToString(), StatusCodes.Status200OK, result);
+
         }
 
     }

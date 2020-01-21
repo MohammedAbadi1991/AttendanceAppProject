@@ -1,16 +1,92 @@
 <mat-toolbar>
-  Session Location:  {{ currentSession.location.name }} |
-  &nbsp;<div>Date: {{ currentSession.sessionDate | date: 'yy/MM/yyyy'}}</div>
-  </mat-toolbar>
+  <div *ngif(currentSession)>
+    Session Location: {{ currentSession.location.name }} |
+    &nbsp;<div>Date: {{ currentSession.sessionDate | date: 'yy/MM/yyyy'}}</div>
+  </div>
+</mat-toolbar>
 
-  <mat-card>
-    <h5>Search by using your pohone number:</h5>
-
+<mat-card>
+  <h5>Search by using your pohone number:</h5>
+  <form [formGroup]="formSearch" (ngSubmit)="onSearch(formSearch)">
     <mat-form-field>
-      <input formControlName="PhoneForSearch" matInput placeholder="Enter Phone Number Here ...">
+      <input formControlName='PhoneForSearch' matInput placeholder='ex: 70 123 456'>
     </mat-form-field>
+    <br />
     <button mat-raised-button color='primary'>Search</button>
+  </form>
 
-  </mat-card>
+</mat-card>
+
+<br />
+<mat-divider></mat-divider>
+<br />
+<mat-card>
+
+  <form [formGroup]='formRegister' (ngSubmit)='onRegister(formRegister)'>
+    <table>
+
+      <tr>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName='Name' [value]="!!currentStudent?currentStudent.name:''">
+        </mat-form-field>
+      </tr>
+
+      <tr>
+        <mat-form-field>
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName='PhoneNumber' [value]="!!currentStudent?currentStudent.phoneNumber:''">
+        </mat-form-field>
+      </tr>
+
+      <tr>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName='Email' [value]="!!currentStudent?currentStudent.email:''">
+        </mat-form-field>
+      </tr>
+
+      <tr>
+        <mat-form-field>
+          <mat-label>Age</mat-label>
+          <input matInput formControlName='Age' [value]="!!currentStudent?currentStudent.age:''">
+        </mat-form-field>
+      </tr>
 
 
+      <tr>
+        <mat-form-field>
+          <mat-label>Town</mat-label>
+          <mat-select formControlName='TownId'>
+            <mat-option *ngFor="let locationItem of allLocations" [value]="locationItem.id">
+              {{ locationItem.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </tr>
+      <tr>
+        <mat-form-field>
+          <mat-label>Major</mat-label>
+          <mat-select formControlName='Major'>
+            <mat-option *ngFor="let majorItem of allMajors" [value]="majorItem">
+              {{ majorItem }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </tr>
+
+      <tr>
+        <td colspan="2"></td>
+        <td colspan="1" class="content-center">
+          <button mat-raised-button color="accent" [disabled]="!formRegister.valid" type="submit">Register</button>
+        </td>
+        <td colspan="1" class="content-center">
+          <button mat-raised-button color="primary" [disabled]="!formRegister.valid" type="submit" (click)="onRegisterNew(formRegister)">Register as new</button>
+        </td>
+      </tr>
+
+    </table>
+
+  </form>
+  <br />
+</mat-card>

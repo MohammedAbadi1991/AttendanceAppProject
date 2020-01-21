@@ -7,18 +7,20 @@ import { AppRoutingModule } from '../app-routing.module';
 import { LoginService } from './services/login.service';
 import { LoginComponent } from './login/login.component';
 import { ApiService } from '../shared/api/api.service';
+import { AttendanceappgraphsComponent } from './thirdparty/attendanceappgraphs/attendanceappgraphs.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [AttendanceappgraphsComponent],
   imports: [
     CommonModule,
     SharedModule,
     AppRoutingModule
   ],
   exports: [
-    AppRoutingModule
+    AppRoutingModule,
+    AttendanceappgraphsComponent
   ],
   //You will provide here also login service.
   providers: [AuthService, AuthGuardService, LoginService, ApiService]

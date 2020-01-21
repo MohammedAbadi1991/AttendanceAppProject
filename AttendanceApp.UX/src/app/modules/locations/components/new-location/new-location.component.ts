@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocationService } from '../../services/locations.service';
-import { MatSnackBar } from '@angular/material';
+import { SnackbarService } from 'src/app/shared/snackbar/snackbar.service';
+import { Subscription } from 'rxjs';
+import { APIResponseModel } from 'src/app/shared/api/api-response';
 
 @Component({
   selector: 'app-new-location',
@@ -10,11 +12,14 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./new-location.component.css']
 })
 
-export class NewLocationComponent implements OnInit {
+export class NewLocationComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
+  subscribtion1: Subscription;
+  subscribtion2: Subscription;
+  subscribtion3: Subscription;
 
-  constructor(private fb: FormBuilder, private router: Router, private service: LocationService, private snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder, private router: Router, private service: LocationService, private snackBar: SnackbarService) {
     // To initialize FormGroup
     this.form = fb.group({
       LocationName: [null, Validators.required],
@@ -24,22 +29,35 @@ export class NewLocationComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy() {
+    if (this.subscribtion1) {
+      this.subscribtion1.unsubscribe();
+    }
+    if (this.subscribtion2) {
+      this.subscribtion2.unsubscribe();
+    }
+    if (this.subscribtion3) {
+      this.subscribtion3.unsubscribe();
+    }
+  }
+
   onFormSubmit(form: NgForm) {
 
-    // console.log(form.value.LocationName);
+    this.subscribtion3 = this.service.addNewLocation(form.value.LocationName).subscribe(result => {
 
-    this.service.addNewLocation(form.value.LocationName).subscribe(() => {
-
-      const subscriber = this.snackBar.open('New location created', 'Exit', {
-        duration: 5000,
-      });
-      subscriber.onAction().subscribe(() => {
-        this.router.navigate(['/locations']);
-      });
-      subscriber.afterDismissed().subscribe(() => {
-        this.router.navigate(['/locations']);
-      });
-
+      if (result.statusCode === 200) {
+        const subscription = this.snackBar.showInfo(result.message);
+        this.subscribtion1 = subscription.onAction().subscribe(() => {
+          this.router.navigate(['/locations']);
+        });
+        this.subscribtion2 = subscription.afterDismissed().subscribe(() => {
+          this.router.navigate(['/locations']);
+        });
+      } else {
+        this.snackBar.showError(result.message);
+      }
+    }, (error: APIResponseModel<any>) => {
+      console.log(error.message);
     });
 
   }

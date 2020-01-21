@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AttendanceApp.DataAccessLayer.Repository
 {
-    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEFBaseModel
     {
         internal AttendanceDbContext context;
         internal DbSet<TEntity> dbSet;
@@ -159,6 +159,12 @@ namespace AttendanceApp.DataAccessLayer.Repository
         public virtual void Insert(TEntity entity)
         {
             dbSet.Add(entity);
+        }
+        public virtual int InsertWithReturn(TEntity entity)
+        {
+            var newRecord = dbSet.Add(entity);
+            context.SaveChanges();
+            return newRecord.Entity.Id;
         }
 
         public virtual void Delete(int id)

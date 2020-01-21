@@ -4,6 +4,9 @@ import { map } from 'rxjs/operators';
 import { SessionModel } from '../mdoels/session.model';
 import { environment } from 'src/environments/environment';
 import { ApiService } from 'src/app/shared/api/api.service';
+import { Subscription, Observable } from 'rxjs';
+import { APIResponseModel } from 'src/app/shared/api/api-response';
+import { StudentModel } from '../mdoels/student.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +14,8 @@ import { ApiService } from 'src/app/shared/api/api.service';
 export class SessionService {
 
   baseServiceUrl = `${environment.baseAPIUrl}/session/`;
+  subscription: Subscription;
+
   constructor(private apiService: ApiService) {
   }
 
@@ -21,7 +26,7 @@ export class SessionService {
     }));
   }
 
-  getSessionById(id: number) {
+  getSessionById(id: number): Observable<SessionModel> {
 
     const url = this.baseServiceUrl + id;
     return this.apiService.getRequest(url).pipe(map(response => {
@@ -29,11 +34,20 @@ export class SessionService {
     }));
   }
 
-  addNewSession(locationId: number, sessionDate: Date) {
-
+  addNewSession(locationId: number, sessionDate: Date): Observable<APIResponseModel<any>> {
     const url = this.baseServiceUrl;
-    this.apiService.postRequest(url, { locationId, sessionDate }).subscribe(response => {
-      // console.log(response);
+    return this.apiService.postRequest(url, { locationId, sessionDate });
+  }
+
+  registerNewStudentToSession(sessionId: number, student: StudentModel) {
+    const url = this.baseServiceUrl + 'RegisterNewStudent';
+    return this.apiService.postRequest(url, { sessionId, student }).subscribe(response => {
+      console.log(response);
     });
+  }
+
+  searchForStudent(phoneNumber: string) {
+    const url = this.baseServiceUrl + 'GetStudentByPhone?phoneNumber=' + phoneNumber;
+    return this.apiService.getRequest(url);
   }
 }

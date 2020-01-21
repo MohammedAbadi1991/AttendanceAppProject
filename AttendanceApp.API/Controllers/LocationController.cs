@@ -20,14 +20,7 @@ namespace AttendanceApp.API.Controllers
         {
             _locationBusinessLogic = locationBusinessLogic;
         }
-
-        // GET: api/Location
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
+        
         [HttpGet("All")]
         public APIResponseModel<IList<LocationModel>> GetAll()
         {
@@ -35,19 +28,25 @@ namespace AttendanceApp.API.Controllers
                 "", StatusCodes.Status200OK.ToString(), StatusCodes.Status200OK, _locationBusinessLogic.GetAll());
         }
 
-        // GET: api/Location/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //// GET: api/Location/5
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
         // POST: api/Location
         [HttpPost()]
-        public IActionResult Post([FromBody] LocationModel model)
+        public APIResponseModel<string> Post([FromBody] LocationModel model)
         {
+            if (string.IsNullOrWhiteSpace(model.Name))
+            return new APIResponseModel<string>(
+                "Cannot insert empty location.", StatusCodes.Status406NotAcceptable.ToString(), StatusCodes.Status406NotAcceptable, "");
+
             _locationBusinessLogic.Insert(model.Name);
-            return Ok();
+
+            return new APIResponseModel<string>(
+               "Location inserted successfully", StatusCodes.Status200OK.ToString(), StatusCodes.Status200OK, "");
         }
 
         // PUT: api/Location/5

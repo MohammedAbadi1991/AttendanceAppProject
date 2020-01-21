@@ -27,11 +27,20 @@ namespace AttendanceApp.BusinessLogicLayer.BusinessLogic
             return _mapper.Map<Session, SessionModel>(session);
         }
 
+        public StudentModel GetStudentByPhone(string phoneNumber)
+        {
+            var student =_unitOfWork.Students.GetOne(st => st.PhoneNumber == phoneNumber);
+            if (student != null)
+                return _mapper.Map<Student, StudentModel>(student);
+            return null;
+        }
+
         public void Insert(SessionModel model)
         {
             var newSession = _mapper.Map<SessionModel, Session>(model);
             _unitOfWork.Sessions.Insert(newSession);
             _unitOfWork.Commit();
         }
+
     }
 }

@@ -21,5 +21,11 @@ namespace AttendanceApp.BusinessLogicLayer.BusinessLogic
             //return _mapper.Map<IEnumerable<Session>, IList<SessionModel>>(sessions);
             return null;
         }
+
+        public int InsertNewStudent(StudentModel student)
+        {
+            var newStudent = _mapper.Map<StudentModel, Student>(student);
+            return  _unitOfWork.Students.InsertWithReturn(newStudent);
+        }
     }
 }

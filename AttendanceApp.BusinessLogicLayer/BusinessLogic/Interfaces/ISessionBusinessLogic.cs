@@ -11,5 +11,6 @@ namespace AttendanceApp.BusinessLogicLayer.BusinessLogic
         IList<SessionModel> GetAll();
         void Insert(SessionModel model);
         SessionModel GetById(int id);
+        StudentModel GetStudentByPhone(string phoneNumber);
     }
 }

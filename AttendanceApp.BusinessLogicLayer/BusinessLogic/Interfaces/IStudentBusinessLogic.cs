@@ -9,5 +9,6 @@ namespace AttendanceApp.BusinessLogicLayer.BusinessLogic
     public interface IStudentBusinessLogic
     {
         IList<StudentModel> GetAll();
+        int InsertNewStudent(StudentModel student);
     }
 }

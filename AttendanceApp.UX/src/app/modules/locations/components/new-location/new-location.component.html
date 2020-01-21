@@ -21,12 +21,11 @@
               <td>
 
                 <mat-form-field>
-                  <!-- <Label for="UserName">User Name:</Label> -->
                   <input formControlName="LocationName" matInput placeholder="Enter Name Here ...">
                 </mat-form-field>
                 <mat-error>
                   <span *ngIf="!form.get('LocationName').valid && form.get('LocationName').touched">Please enter your
-                    User Name !!!</span>
+                    Location Name !!!</span>
                 </mat-error>
               </td>
             </tr>

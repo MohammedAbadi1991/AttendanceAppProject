@@ -49,15 +49,6 @@ namespace AttendanceApp.API
 
             // Inject Unit of Work
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-
-            //services.AddCors(o => o.AddDefaultPolicy(builder =>
-            //{
-            //    builder.AllowAnyOrigin()
-            //           .AllowAnyMethod()
-            //           .AllowCredentials()
-            //           .AllowAnyHeader();
-            //}));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
