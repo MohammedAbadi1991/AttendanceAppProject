@@ -46,6 +46,7 @@ namespace AttendanceApp.API
             services.AddTransient<ILocationBusinessLogic, LocationBusinessLogic>();
             services.AddTransient<IUserBusinessLogic, UserBusinessLogic>();
             services.AddTransient<IStudentBusinessLogic, StudentBusinessLogic>();
+            services.AddTransient<IMajorBusinessLogic, MajorBusinessLogic>();
 
             // Inject Unit of Work
             services.AddTransient<IUnitOfWork, UnitOfWork>();

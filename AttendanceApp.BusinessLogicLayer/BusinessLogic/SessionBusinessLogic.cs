@@ -42,5 +42,11 @@ namespace AttendanceApp.BusinessLogicLayer.BusinessLogic
             _unitOfWork.Commit();
         }
 
+        public void RegisterStudentToSession(int sessionId, int studentId)
+        {
+            var newAttendance = new StudentAttendance() { RegistrationTime = DateTime.Now, SessionId = sessionId, StudentId = studentId };
+            _unitOfWork.StudentAttendances.Insert(newAttendance);
+            _unitOfWork.Commit();
+        }
     }
 }

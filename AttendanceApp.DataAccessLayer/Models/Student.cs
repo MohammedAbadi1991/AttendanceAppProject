@@ -16,9 +16,10 @@ namespace AttendanceApp.DataAccessLayer.Models
         public string Email { get; set; }
         public int? Age { get; set; }
         public int? TownId { get; set; }
-        public string Major { get; set; }
         public short? BloodType { get; set; }
+        public int? MajorId { get; set; }
 
+        public virtual Major Major { get; set; }
         public virtual Location Town { get; set; }
         public virtual ICollection<StudentAttendance> StudentAttendance { get; set; }
     }

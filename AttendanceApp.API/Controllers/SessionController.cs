@@ -81,16 +81,23 @@ namespace AttendanceApp.API.Controllers
 
 
         // POST: api/Session/RegisterNewStudent
-        [HttpPost("RegisterNewStudent")]
-        public APIResponseModel<string> RegisterNewStudent([FromBody] StudentAndSessionIdModel model)
+        [HttpPost("RegisterStudent")]
+        public APIResponseModel<string> RegisterStudent([FromBody] StudentAndSessionIdModel model)
         {
-
-            var newUserId = _studentBusinessLogic.InsertNewStudent(model.Student);
-
+            int userId;
+            if (model.Student.Id > 0)
+            {
+                userId = model.Student.Id;
+            }
+            else
+            {
+                userId = _studentBusinessLogic.InsertNewStudent(model.Student);
+            }
+            //_sessionBusinessLogic.RegisterStudentToSession(model.SessionId, userId);
+            
             return new APIResponseModel<string>(
                "Session inserted successfully", StatusCodes.Status200OK.ToString(), StatusCodes.Status200OK, "");
         }
-
 
         // GET: api/Session/GetStudentByPhone/id
         [HttpGet("GetStudentByPhone")]

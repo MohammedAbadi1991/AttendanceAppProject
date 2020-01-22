@@ -9,6 +9,8 @@ namespace AttendanceApp.DataAccessLayer.UnitOfWork
         ILocationRepository Locations { get; }
         ISessionRepository Sessions { get; }
         IStudentRepository Students { get; }
+        IMajorRepository Majors { get; }
+        IStudentAttendanceRepository StudentAttendances { get; }
 
         void Commit();
     }

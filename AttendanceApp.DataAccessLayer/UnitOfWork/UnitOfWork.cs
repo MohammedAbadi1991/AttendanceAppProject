@@ -18,6 +18,8 @@ namespace AttendanceApp.DataAccessLayer.UnitOfWork
         public IStudentRepository Students => new StudentRepository(_dbContext);
         public ISessionRepository Sessions => new SessionRepository(_dbContext);
         public ILocationRepository Locations => new LocationRepository(_dbContext);
+        public IMajorRepository Majors => new MajorRepository(_dbContext);
+        public IStudentAttendanceRepository StudentAttendances => new StudentAttendanceRepository(_dbContext);
 
         public void Commit()
         {

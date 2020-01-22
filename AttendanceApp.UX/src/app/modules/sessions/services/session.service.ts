@@ -39,11 +39,9 @@ export class SessionService {
     return this.apiService.postRequest(url, { locationId, sessionDate });
   }
 
-  registerNewStudentToSession(sessionId: number, student: StudentModel) {
-    const url = this.baseServiceUrl + 'RegisterNewStudent';
-    return this.apiService.postRequest(url, { sessionId, student }).subscribe(response => {
-      console.log(response);
-    });
+  registerStudentToSession(sessionId: number, student: StudentModel) {
+    const url = this.baseServiceUrl + 'RegisterStudent';
+    return this.apiService.postRequest(url, { sessionId, student });
   }
 
   searchForStudent(phoneNumber: string) {

@@ -16,6 +16,7 @@ namespace AttendanceApp.DataAccessLayer.Models
         }
 
         public virtual DbSet<Location> Location { get; set; }
+        public virtual DbSet<Major> Major { get; set; }
         public virtual DbSet<Session> Session { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<StudentAttendance> StudentAttendance { get; set; }
@@ -23,11 +24,11 @@ namespace AttendanceApp.DataAccessLayer.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseSqlServer("Server=.;Database=AttendanceDb;Trusted_Connection=True;");
-//            }
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=.;Database=AttendanceDb;Trusted_Connection=True;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,6 +40,11 @@ namespace AttendanceApp.DataAccessLayer.Models
                 entity.Property(e => e.Name)
                     .HasMaxLength(100)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Major>(entity =>
+            {
+                entity.Property(e => e.MajorName).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Session>(entity =>
@@ -68,6 +74,11 @@ namespace AttendanceApp.DataAccessLayer.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Major)
+                    .WithMany(p => p.Student)
+                    .HasForeignKey(d => d.MajorId)
+                    .HasConstraintName("FK_Student_Major");
 
                 entity.HasOne(d => d.Town)
                     .WithMany(p => p.Student)

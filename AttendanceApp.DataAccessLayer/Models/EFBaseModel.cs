@@ -25,4 +25,7 @@ namespace AttendanceApp.DataAccessLayer.Models
     partial class User : IEFBaseModel
     {
     }
+    partial class Major : IEFBaseModel
+    {
+    }
 }

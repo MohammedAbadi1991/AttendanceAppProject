@@ -8,9 +8,10 @@
         public string Email { get; set; }
         public int? Age { get; set; }
         public int? TownId { get; set; }
-        public string Major { get; set; }
+        public int MajorId { get; set; }
         public short? BloodType { get; set; }
 
         public virtual LocationModel Town { get; set; }
+        public virtual MajorModel Major { get; set; }
     }
 }

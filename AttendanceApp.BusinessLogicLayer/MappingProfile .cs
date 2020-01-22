@@ -22,6 +22,8 @@ namespace AttendanceApp.BusinessLogicLayer
             CreateMap<Student, StudentModel>();
             CreateMap<StudentAttendance, StudentAttendanceModel>();
             CreateMap<StudentModel, Student>();
+            CreateMap<MajorModel, Major>();
+            CreateMap<Major, MajorModel>();
         }
     }
 }

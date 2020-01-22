@@ -7,7 +7,7 @@
 
 <mat-card>
   <h5>Search by using your pohone number:</h5>
-  <form [formGroup]="formSearch" (ngSubmit)="onSearch(formSearch)">
+  <form [formGroup]="formSearch" (ngSubmit)="onSearch()">
     <mat-form-field>
       <input formControlName='PhoneForSearch' matInput placeholder='ex: 70 123 456'>
     </mat-form-field>
@@ -22,34 +22,34 @@
 <br />
 <mat-card>
 
-  <form [formGroup]='formRegister' (ngSubmit)='onRegister(formRegister)'>
+  <form [formGroup]='formRegister' (ngSubmit)='onRegister()'>
     <table>
 
       <tr>
         <mat-form-field>
           <mat-label>Name</mat-label>
-          <input matInput formControlName='Name' [value]="!!currentStudent?currentStudent.name:''">
+          <input matInput formControlName='Name'>
         </mat-form-field>
       </tr>
 
       <tr>
         <mat-form-field>
           <mat-label>Phone Number</mat-label>
-          <input matInput formControlName='PhoneNumber' [value]="!!currentStudent?currentStudent.phoneNumber:''">
+          <input matInput formControlName='PhoneNumber'>
         </mat-form-field>
       </tr>
 
       <tr>
         <mat-form-field>
           <mat-label>Email</mat-label>
-          <input matInput formControlName='Email' [value]="!!currentStudent?currentStudent.email:''">
+          <input matInput formControlName='Email'>
         </mat-form-field>
       </tr>
 
       <tr>
         <mat-form-field>
           <mat-label>Age</mat-label>
-          <input matInput formControlName='Age' [value]="!!currentStudent?currentStudent.age:''">
+          <input matInput formControlName='Age'>
         </mat-form-field>
       </tr>
 
@@ -67,9 +67,9 @@
       <tr>
         <mat-form-field>
           <mat-label>Major</mat-label>
-          <mat-select formControlName='Major'>
-            <mat-option *ngFor="let majorItem of allMajors" [value]="majorItem">
-              {{ majorItem }}
+          <mat-select formControlName='MajorId'>
+            <mat-option *ngFor="let majorItem of allMajors" [value]="majorItem.id">
+              {{ majorItem.majorName }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -78,10 +78,10 @@
       <tr>
         <td colspan="2"></td>
         <td colspan="1" class="content-center">
-          <button mat-raised-button color="accent" [disabled]="!formRegister.valid" type="submit">Register</button>
+          <button mat-raised-button color="accent" [disabled]="!(!isForNewStudent && formRegister.valid)" type="submit">Register</button>
         </td>
         <td colspan="1" class="content-center">
-          <button mat-raised-button color="primary" [disabled]="!formRegister.valid" type="submit" (click)="onRegisterNew(formRegister)">Register as new</button>
+          <button mat-raised-button color="primary" [disabled]="!(isForNewStudent && formRegister.valid)" type="button" (click)="onRegisterNew()">Register as new</button>
         </td>
       </tr>
 
